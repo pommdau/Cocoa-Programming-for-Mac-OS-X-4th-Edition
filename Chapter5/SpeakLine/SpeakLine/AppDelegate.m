@@ -22,6 +22,13 @@
         // Make a new instance of NSSpeechSynthesizer
         // with default voice
         _speechSynth = [[NSSpeechSynthesizer alloc] initWithVoice:nil];
+        
+        // why can't work???
+        [_startButton setTarget:self];
+        [_stopButton  setTarget:self];
+        [_startButton setAction:@selector(sayIt:)];
+        [_stopButton  setAction:@selector(stopIt:)];
+        
     }
     return self;
 }
@@ -34,7 +41,6 @@
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
     // Insert code here to tear down your application
 }
-
 
 - (IBAction)stopIt:(id)sender {
     NSLog(@"stopping");

@@ -9,7 +9,10 @@
 #import <Cocoa/Cocoa.h>
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
-
+@property (weak) IBOutlet NSTextField *textField;
+@property NSSpeechSynthesizer *speechSynth; // インスタンス変数ではなくプロパティで作成する
+- (IBAction)stopIt:(id)sender;
+- (IBAction)sayIt :(id)sender;
 
 @end
 

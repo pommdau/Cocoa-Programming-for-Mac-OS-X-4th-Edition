@@ -8,8 +8,17 @@
 
 #import "AppDelegate.h"
 
-@interface AppDelegate ()
+@interface AppDelegate () <NSSpeechSynthesizerDelegate>
+// UI parts
+@property (weak) IBOutlet NSTextField *textField;
+@property (weak) IBOutlet NSButton    *startButton;
+@property (weak) IBOutlet NSButton    *stopButton;
 
+@property NSSpeechSynthesizer *speechSynth; // make as property, not as instance valiable
+@property NSArray *voices;
+
+- (IBAction)stopIt:(id)sender;
+- (IBAction)sayIt :(id)sender;
 @property (weak) IBOutlet NSWindow *window;
 @end
 
@@ -22,8 +31,9 @@
         // Make a new instance of NSSpeechSynthesizer
         // with default voice
         _speechSynth = [[NSSpeechSynthesizer alloc] initWithVoice:nil];
-        
         [_speechSynth setDelegate:self];
+
+        _voices = [NSSpeechSynthesizer availableVoices];
     }
     return self;
 }
@@ -36,6 +46,18 @@
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
     // Insert code here to tear down your application
 }
+
+#pragma mark - TableView Delegate Method
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)tv {
+    return (NSInteger)_voices.count;
+}
+
+- (id)tableView:(NSTableView *)tv objectValueForTableColumn:(NSTableColumn *)NSTableColumn row:(NSInteger)row {
+    NSString     *voice     = _voices[row];
+    NSDictionary *voiceDict = [NSSpeechSynthesizer attributesForVoice:voice];
+    return voiceDict[NSVoiceName];
+}
+
 
 #pragma mark - NSSynthesizer Delegate Method
 - (void)speechSynthesizer:(NSSpeechSynthesizer *)sender
@@ -62,7 +84,7 @@
     NSLog(@"Have started tot say %@", string);
     
     // Change Button State
-    [_stopButton setEnabled:YES];
+    [_stopButton  setEnabled:YES];
     [_startButton setEnabled:NO];
     
 }

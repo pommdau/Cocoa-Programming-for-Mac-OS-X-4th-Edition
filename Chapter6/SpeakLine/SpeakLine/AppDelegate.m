@@ -22,6 +22,8 @@
         // Make a new instance of NSSpeechSynthesizer
         // with default voice
         _speechSynth = [[NSSpeechSynthesizer alloc] initWithVoice:nil];
+        
+        [_speechSynth setDelegate:self];
     }
     return self;
 }
@@ -35,7 +37,16 @@
     // Insert code here to tear down your application
 }
 
+#pragma mark - NSSynthesizer Delegate Method
+- (void)speechSynthesizer:(NSSpeechSynthesizer *)sender
+        didFinishSpeaking:(BOOL)finishedSpeaking {
+    NSLog(@"finishedSpeaking = %d", finishedSpeaking);  // if you push stop button, finishedSpeaking is NO
+    [_stopButton setEnabled:NO];
+    [_startButton setEnabled:YES];
+}
 
+
+#pragma mark - Button Action Method
 - (IBAction)stopIt:(id)sender {
     NSLog(@"stopping");
     [_speechSynth stopSpeaking];
@@ -49,5 +60,10 @@
     }
     [_speechSynth startSpeakingString:string];
     NSLog(@"Have started tot say %@", string);
+    
+    // Change Button State
+    [_stopButton setEnabled:YES];
+    [_startButton setEnabled:NO];
+    
 }
 @end

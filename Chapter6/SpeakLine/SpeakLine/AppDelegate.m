@@ -13,7 +13,7 @@
 @property (weak) IBOutlet NSTextField *textField;
 @property (weak) IBOutlet NSButton    *startButton;
 @property (weak) IBOutlet NSButton    *stopButton;
-
+@property (weak) IBOutlet NSTableView *voiceTable;
 @property NSSpeechSynthesizer *speechSynth; // make as property, not as instance valiable
 @property NSArray *voices;
 
@@ -42,9 +42,18 @@
     // Insert code here to initialize your application
 }
 
-
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
     // Insert code here to tear down your application
+}
+
+- (void)awakeFromNib {
+    // select default voice when first showing table
+    NSString *defaultVoice = NSSpeechSynthesizer.defaultVoice;
+    NSInteger defaultRow = [_voices indexOfObject:defaultVoice];
+    NSIndexSet *indices = [NSIndexSet indexSetWithIndex:defaultRow];
+    [_voiceTable selectRowIndexes:indices byExtendingSelection:NO];
+    [_voiceTable scrollRowToVisible:defaultRow];
+    
 }
 
 #pragma mark - TableView Delegate Method
@@ -58,13 +67,25 @@
     return voiceDict[NSVoiceName];
 }
 
+// Selection changed
+- (void)tableViewSelectionDidChange:(NSNotification *)notification {
+    NSInteger row = [_voiceTable selectedRow];
+    if (row == -1) {
+        return;
+    }
+    NSString *selectedVoice = _voices[row];
+    [_speechSynth setVoice:selectedVoice];
+    NSLog(@"new voice = %@", selectedVoice);
+}
+
 
 #pragma mark - NSSynthesizer Delegate Method
 - (void)speechSynthesizer:(NSSpeechSynthesizer *)sender
         didFinishSpeaking:(BOOL)finishedSpeaking {
     NSLog(@"finishedSpeaking = %d", finishedSpeaking);  // if you push stop button, finishedSpeaking is NO
-    [_stopButton setEnabled:NO];
+    [_stopButton  setEnabled:NO];
     [_startButton setEnabled:YES];
+    [_voiceTable  setEnabled:YES];
 }
 
 
@@ -86,6 +107,7 @@
     // Change Button State
     [_stopButton  setEnabled:YES];
     [_startButton setEnabled:NO];
+    [_voiceTable setEnabled:NO];    // can't change voice in speaking
     
 }
 @end

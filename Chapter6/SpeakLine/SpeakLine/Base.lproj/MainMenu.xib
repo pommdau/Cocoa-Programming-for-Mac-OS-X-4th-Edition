@@ -17,6 +17,7 @@
                 <outlet property="startButton" destination="hDa-C8-UHb" id="mMH-U1-isM"/>
                 <outlet property="stopButton" destination="MjK-xt-iPK" id="xPw-BX-ar0"/>
                 <outlet property="textField" destination="oxs-zY-QBA" id="mtX-mB-oyQ"/>
+                <outlet property="voiceTable" destination="IC9-gH-BW5" id="LDT-Bl-208"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="gIp-Ho-8D9"/>
             </connections>
         </customObject>

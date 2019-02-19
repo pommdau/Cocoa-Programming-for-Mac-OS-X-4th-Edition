@@ -35,6 +35,22 @@
     fido = x;
 }
 
+- (IBAction)incrementFido:(id)sender {
+//    // オブザーバーの通知を明示的にトリガーする方法
+//    [self willChangeValueForKey:@"fido"];
+//    fido++;
+//    NSLog(@"fido is now %d", fido);
+//    [self didChangeValueForKey:@"fido"];
+    
+//    // KVCを使う方法
+//    NSNumber *nowValue = [self valueForKey:@"fido"];
+//    NSNumber *nowValuePP = [NSNumber numberWithInt:[nowValue intValue]+1];
+//    [self setValue:nowValuePP forKey:@"fido"];
+    
+    // Accesserを用いる方法
+    [self setFido:[self fido] + 1];
+}
+
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     // Insert code here to initialize your application
 }

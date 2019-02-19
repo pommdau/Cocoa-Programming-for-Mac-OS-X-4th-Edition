@@ -9,11 +9,11 @@
 #import "AppDelegate.h"
 
 @interface AppDelegate ()
-
 @property (weak) IBOutlet NSWindow *window;
 @end
 
 @implementation AppDelegate
+@synthesize fido;
 
 - (id)init {
     self = [super init];
@@ -23,16 +23,6 @@
         NSLog(@"fido=%@", n);
     }
     return self;
-}
-
-- (int)fido {
-    NSLog(@"-fido is returning %d", fido);
-    return fido;
-}
-
-- (void)setFido:(int)x {
-    NSLog(@"-setFido: is called with %d", x);
-    fido = x;
 }
 
 - (IBAction)incrementFido:(id)sender {

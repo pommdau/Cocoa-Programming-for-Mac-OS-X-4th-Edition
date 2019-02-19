@@ -11,9 +11,7 @@
 @interface AppDelegate : NSObject <NSApplicationDelegate> {
     int fido;
 }
-// getter and setter
-- (int)fido;
-- (void)setFido:(int)x;
+@property (readwrite, assign) int fido;
 - (IBAction)incrementFido:(id)sender;
 @end
 

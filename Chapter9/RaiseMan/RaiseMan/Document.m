@@ -7,6 +7,7 @@
 //
 
 #import "Document.h"
+#import "Person.h"
 
 @interface Document ()
 
@@ -32,6 +33,31 @@
 
 + (BOOL)autosavesInPlace {
     return YES;
+}
+
+- (void)insertObject:(Person *)p inEmployeesAtIndex:(NSUInteger)index {
+    NSLog(@"adding %@ to %@", p, employees);
+    // 逆の操作をUndoStackに追加する
+    NSUndoManager *undo = [self undoManager];
+    [[undo prepareWithInvocationTarget:self] removeObjectFromEmployeesAtIndex:index];
+    if (![undo isUndoing]) {
+        [undo setActionName:@"Add person"];
+    }
+    
+    // Personを配列に追加する
+    [employees insertObject:p atIndex:index];
+}
+
+- (void)removeObjectFromEmployeesAtIndex:(NSUInteger)index {
+    Person *p = employees[index];
+    NSLog(@"removing %@ from %@", p, employees);
+    // 逆の操作をUndoStackに追加する
+    NSUndoManager *undo = [self undoManager];
+    [[undo prepareWithInvocationTarget:self] insertObject:p inEmployeesAtIndex:index];
+    if (![undo isUndoing]) {
+        [undo setActionName:@"Remove Person"];
+    }
+    [employees removeObjectAtIndex:index];
 }
 
 

@@ -122,6 +122,45 @@ static void *RMDocumentKVOContext;
     [employees removeObjectAtIndex:index];
 }
 
+- (IBAction)createEmployee:(id)sender {
+    NSWindow *w = [tableView window];
+    // 編集を実行中の場合は終了させる
+    BOOL editingEnded = [w makeFirstResponder:w];
+    if (!editingEnded) {
+        NSLog(@"Unable to end editing");
+        return;
+    }
+    
+    NSUndoManager *undo = [self undoManager];
+    
+    // このイベントの中で既に編集が発生しているか
+    if ([undo groupingLevel] > 0) {
+        // 最後のグループをクローズ
+        [undo endUndoGrouping];
+        // 新しいグループをオープン
+        [undo beginUndoGrouping];
+    }
+    
+    // オブジェクトを生成する
+    Person *p = [employeeController newObject];
+    
+    // employeeControllerのコンテンツ配列に追加する
+    [employeeController addObject:p];
+    
+    // 再度並び替える
+    [employeeController rearrangeObjects];
+    
+    // 並べ替えられた配列を取得する
+    NSArray *a = [employeeController arrangedObjects];
+    
+    // 追加されたオブジェクトを検索する
+    NSUInteger row = [a indexOfObjectIdenticalTo:p];
+    NSLog(@"starting edit of %@ in row %lu", p, row);
+    
+    // 最後の列で編集を開始する
+    [tableView editColumn:0 row:row withEvent:nil select:YES];
+}
+
 
 #pragma mark Default methods
 

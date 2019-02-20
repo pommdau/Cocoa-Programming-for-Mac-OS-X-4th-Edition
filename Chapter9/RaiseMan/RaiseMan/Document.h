@@ -11,7 +11,11 @@
 
 @interface Document : NSDocument {
     NSMutableArray *employees;
+    __weak IBOutlet NSTableView *tableView;
+    IBOutlet NSArrayController *employeeController;
 }
+
+- (IBAction)createEmployee:(id)sender;
 
 - (void)setEmployees:(NSMutableArray *)a;
 

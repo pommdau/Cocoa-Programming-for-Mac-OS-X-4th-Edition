@@ -30,4 +30,23 @@
     }
 }
 
+// アーカイブ化
+- (void)encodeWithCoder:(NSCoder *)coder {
+    [coder encodeObject:personName   forKey:@"personName"];
+    [coder encodeFloat:expectedRaise forKey:@"expectedRaise"];
+}
+
+// デコード化
+- (id)initWithCoder:(NSCoder *)coder {
+    self = [super init];
+    if (self) {
+        personName = [coder decodeObjectForKey:@"personName"];
+        expectedRaise = [coder decodeFloatForKey:@"expectedRaise"];
+    }
+    return self;
+}
+
+
+
+
 @end

@@ -25,15 +25,75 @@
 }
 
 - (void)setEmployees:(NSMutableArray *)a {
-    if (a == employees) {
-        return;
+    for (Person *person in employees) {
+        [self stopObservingPerson:person];
     }
+
     employees = a;
+    
+    for (Person *person in employees) {
+        [self startObservingPerson:person];
+    }
 }
 
-+ (BOOL)autosavesInPlace {
-    return YES;
+#pragma mark For Undo methods
+
+// RMDocumentKVOContextによって、このクラスへの
+// KVOメッセージとスーパークラスへのメッセージを区別できるようになる
+static void *RMDocumentKVOContext;
+
+- (void)startObservingPerson:(Person *)person {
+    [person addObserver:self
+             forKeyPath:@"personName"
+                options:NSKeyValueObservingOptionOld
+                context:&RMDocumentKVOContext];
+    [person addObserver:self
+             forKeyPath:@"expectedRaise"
+                options:NSKeyValueObservingOptionOld
+                context:&RMDocumentKVOContext];
 }
+
+- (void)stopObservingPerson:(Person *)person {
+    [person removeObserver:self
+                forKeyPath:@"personName"
+                   context:&RMDocumentKVOContext];
+    [person removeObserver:self
+                forKeyPath:@"expectedRaise"
+                   context:&RMDocumentKVOContext];
+    
+}
+
+// 編集とその逆の操作を行うメソッド
+- (void)changeKeyPath:(NSString *)keyPath
+             ofObject:(id)obj
+              toValue:(id)newValue {
+    // setValue:forkeyPathによってKVOメソッドが呼び出され、Undo関連の処理が行われる
+    [obj setValue:newValue forKey:keyPath];
+}
+
+// Personオブジェクトが編集された際に呼び出されるメソッド
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+    if (context != &RMDocumentKVOContext) {
+        // コンテキストが一致しない場合、このメッセージはスーパークラスへ当てたものと判断される
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+        return;
+    }
+    
+    NSUndoManager *undo = [self undoManager];
+    id oldValue = [change objectForKey:NSKeyValueChangeOldKey];
+    
+    // ディクショナリ内のnilを実現するために、NSNullオブジェクトが使用される
+    if (oldValue == [NSNull null]) {
+        oldValue = nil;
+    }
+    NSLog(@"oldValue = %@", oldValue);
+    [[undo prepareWithInvocationTarget:self] changeKeyPath:keyPath ofObject:object toValue:oldValue];
+    [undo setActionName:@"Edit"];
+}
+
+#pragma mark - KVC methods
 
 - (void)insertObject:(Person *)p inEmployeesAtIndex:(NSUInteger)index {
     NSLog(@"adding %@ to %@", p, employees);
@@ -45,6 +105,7 @@
     }
     
     // Personを配列に追加する
+    [self startObservingPerson:p];  // 「p」に対して監視を始める
     [employees insertObject:p atIndex:index];
 }
 
@@ -57,9 +118,16 @@
     if (![undo isUndoing]) {
         [undo setActionName:@"Remove Person"];
     }
+    [self stopObservingPerson:p];   // 「p」に対して監視を終了する
     [employees removeObjectAtIndex:index];
 }
 
+
+#pragma mark Default methods
+
++ (BOOL)autosavesInPlace {
+    return YES;
+}
 
 - (NSString *)windowNibName {
     // Override returning the nib file name of the document

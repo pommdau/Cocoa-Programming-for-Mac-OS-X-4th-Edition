@@ -178,8 +178,14 @@ static void *RMDocumentKVOContext;
 - (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError {
     // Insert code here to write your document to data of the specified type. If outError != NULL, ensure that you create and set an appropriate error when returning nil.
     // You can also choose to override -fileWrapperOfType:error:, -writeToURL:ofType:error:, or -writeToURL:ofType:forSaveOperation:originalContentsURL:error: instead.
-    [NSException raise:@"UnimplementedMethod" format:@"%@ is unimplemented", NSStringFromSelector(_cmd)];
-    return nil;
+//    [NSException raise:@"UnimplementedMethod" format:@"%@ is unimplemented", NSStringFromSelector(_cmd)];
+//    return nil;
+    
+    // 編集の終了
+    [[tableView window] endEditingFor:nil];
+    
+    // employeesの配列からNSDateオブジェクトを生成する
+    return [NSKeyedArchiver archivedDataWithRootObject:employees];
 }
 
 
@@ -187,7 +193,22 @@ static void *RMDocumentKVOContext;
     // Insert code here to read your document from the given data of the specified type. If outError != NULL, ensure that you create and set an appropriate error when returning NO.
     // You can also choose to override -readFromFileWrapper:ofType:error: or -readFromURL:ofType:error: instead.
     // If you override either of these, you should also override -isEntireFileLoaded to return NO if the contents are lazily loaded.
-    [NSException raise:@"UnimplementedMethod" format:@"%@ is unimplemented", NSStringFromSelector(_cmd)];
+//    [NSException raise:@"UnimplementedMethod" format:@"%@ is unimplemented", NSStringFromSelector(_cmd)];
+//    return YES;
+    
+    NSLog(@"About to read data of type %@", typeName);
+    NSMutableArray *newArray = nil;
+    @try {
+        newArray = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    } @catch (NSException *e) {
+        NSLog(@"exception = %@", e);
+        if (outError) {
+            NSDictionary *d = [NSDictionary dictionaryWithObject:@"The data is corrupted." forKey:NSLocalizedFailureReasonErrorKey];
+            *outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:unimpErr userInfo:d];
+        }
+        return NO;
+    }
+    [self setEmployees:newArray];
     return YES;
 }
 

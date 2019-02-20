@@ -14,6 +14,8 @@
 @synthesize priority;
 @synthesize progress;
 @synthesize startDay;
+@synthesize limitDay;
+@synthesize leftTime;
 
 - (id)init {
     self = [super init];
@@ -22,9 +24,23 @@
         priority = 0;
         progress = 0;
         startDay = [NSDate date];
+        limitDay = [NSDate date];
+        
+        // limitDay = limitDay - startDay
+        NSCalendar *calendar = [NSCalendar currentCalendar];
+        leftTime = [calendar components:NSCalendarUnitDay fromDate:startDay toDate:limitDay options:0];
     }
     return self;
-    
+}
+
+- (void)setNilValueForKey:(NSString *)key {
+    if ([key isEqualToString:@"priority"]) {
+        [self setPriority:0];
+    } else if ([key isEqualToString:@"progress"]) {
+        [self setProgress:0.0];
+    } else {
+        [super setNilValueForKey:key];
+    }
 }
 
 @end

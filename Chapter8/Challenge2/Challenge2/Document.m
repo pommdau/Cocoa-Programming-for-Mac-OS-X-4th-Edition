@@ -72,6 +72,14 @@ objectValueForTableColumn:(nullable NSTableColumn *)aTableColumn
     [person setValue:anObject forKey:identifier];
 }
 
+// テーブルの列のヘッダをクリックされたとき、tableColumnに設定されているソートを行う
+- (void)tableView:(NSTableView *)aTableView
+sortDescriptorsDidChange:(nonnull NSArray<NSSortDescriptor *> *)oldDescriptors {
+    NSArray *newDescriptors = [tableView sortDescriptors];
+    [employees sortUsingDescriptors:newDescriptors];
+    [tableView reloadData];
+}
+
 + (BOOL)autosavesInPlace {
     return YES;
 }

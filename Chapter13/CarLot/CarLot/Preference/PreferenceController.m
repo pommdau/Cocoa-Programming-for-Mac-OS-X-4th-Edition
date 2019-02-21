@@ -24,14 +24,17 @@ NSString *const BNREmptyDocKey             = @"BNREmptyDocumentFlag";
     [super windowDidLoad];
     NSLog(@"Nib file is loaded");
     
-    [colorWell setColor:[PreferenceController preferenceTableBackgroundColor]];
-    [checkbox setState:[PreferenceController preferenceEmptyDoc]];
-    
+    [self reloadFromPreferences];
 }
 
 - (id)init {
     self = [super initWithWindowNibName:@"Preferences"];
     return self;
+}
+
+- (void)reloadFromPreferences {
+    [colorWell setColor:[PreferenceController preferenceTableBackgroundColor]];
+    [checkbox  setState:[PreferenceController preferenceEmptyDoc]];
 }
 
 - (IBAction)changeBackgroundColor:(id)sender {
@@ -44,6 +47,16 @@ NSString *const BNREmptyDocKey             = @"BNREmptyDocumentFlag";
     NSInteger state = [checkbox state];
     NSLog(@"Checkbox changed %ld", state);
     [PreferenceController setPreferenceEmptyDoc:state];
+}
+
+// 設定リセット
+- (IBAction)resetPreferences:(id)sender
+{
+    NSArray *allDefaultKeys = [NSArray arrayWithObjects:BNRTableBackgroundColorKey, BNREmptyDocKey, nil];
+    for (NSString *key in allDefaultKeys) {
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:key];
+    }
+    [self reloadFromPreferences];
 }
 
 // Userdefaultを編集するための、SetterやGetter

@@ -25,4 +25,5 @@ extern NSString *const BNREmptyDocKey;
 + (BOOL)preferenceEmptyDoc;
 + (void)setPreferenceEmptyDoc:(BOOL)emptyDoc;
 
+- (IBAction)resetPreferences:(id)sender;
 @end

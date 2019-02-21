@@ -17,15 +17,15 @@
         <window title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" frameAutosaveName="" animationBehavior="default" id="0Q4-uL-u4e" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" utility="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="167" y="107" width="355" height="95"/>
+            <rect key="contentRect" x="167" y="107" width="355" height="136"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
             <value key="minSize" type="size" width="355" height="95"/>
             <view key="contentView" id="ncd-wr-sGv">
-                <rect key="frame" x="0.0" y="0.0" width="355" height="95"/>
+                <rect key="frame" x="0.0" y="0.0" width="355" height="136"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Eub-pb-Yyb">
-                        <rect key="frame" x="20" y="52" width="44" height="23"/>
+                        <rect key="frame" x="20" y="93" width="44" height="23"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <connections>
@@ -33,7 +33,7 @@
                         </connections>
                     </colorWell>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TSj-eN-xWj">
-                        <rect key="frame" x="18" y="18" width="252" height="18"/>
+                        <rect key="frame" x="18" y="59" width="252" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="check" title="Automatically open untitled document" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="ueo-m1-dW6">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -41,10 +41,11 @@
                         </buttonCell>
                         <connections>
                             <action selector="changeNewEmptyDoc:" target="-2" id="23W-lh-RNO"/>
+                            <binding destination="MmZ-Qr-BcJ" name="value" keyPath="values.BNREmptyDocumentFlag" id="q4X-cL-A8F"/>
                         </connections>
                     </button>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uBt-Da-QgM">
-                        <rect key="frame" x="71" y="55" width="147" height="17"/>
+                        <rect key="frame" x="71" y="96" width="147" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Table Background color" id="Oka-P5-adp">
                             <font key="font" metaFont="system"/>
@@ -52,9 +53,21 @@
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Bac-lz-mN7">
+                        <rect key="frame" x="14" y="13" width="151" height="32"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="push" title="Reset Preferences" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="BDq-YP-YWV">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="resetPreferences:" target="-2" id="TXe-Xa-S0A"/>
+                        </connections>
+                    </button>
                 </subviews>
             </view>
-            <point key="canvasLocation" x="81.5" y="-51.5"/>
+            <point key="canvasLocation" x="81.5" y="-31"/>
         </window>
+        <userDefaultsController representsSharedInstance="YES" id="MmZ-Qr-BcJ"/>
     </objects>
 </document>

@@ -8,6 +8,9 @@
 
 #import "PreferenceController.h"
 
+NSString *const BNRTableBackgroundColorKey = @"BNRTableBackgroundColor";
+NSString *const BNREmptyDocKey             = @"BNREmptyDocumentFlag";
+
 @interface PreferenceController ()
 
 @end

@@ -8,6 +8,9 @@
 
 #import <Cocoa/Cocoa.h>
 
+extern NSString *const BNRTableBackgroundColorKey;
+extern NSString *const BNREmptyDocKey;
+
 @interface PreferenceController : NSWindowController {
     IBOutlet NSColorWell *colorWell;
     IBOutlet NSButton *checkbox;

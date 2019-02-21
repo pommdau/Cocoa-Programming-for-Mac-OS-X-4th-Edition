@@ -14,6 +14,7 @@
 		D05075C5221D40A6006E4FD1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D05075C4221D40A6006E4FD1 /* Assets.xcassets */; };
 		D05075C8221D40A6006E4FD1 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = D05075C6221D40A6006E4FD1 /* MainMenu.xib */; };
 		D05075CB221D40A6006E4FD1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D05075CA221D40A6006E4FD1 /* main.m */; };
+		D0B7B6B7221E47A70086FFB1 /* CarArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B7B6B6221E47A70086FFB1 /* CarArrayController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,8 @@
 		D05075C9221D40A6006E4FD1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D05075CA221D40A6006E4FD1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		D05075CC221D40A6006E4FD1 /* CarLot.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CarLot.entitlements; sourceTree = "<group>"; };
+		D0B7B6B5221E47A60086FFB1 /* CarArrayController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CarArrayController.h; sourceTree = "<group>"; };
+		D0B7B6B6221E47A70086FFB1 /* CarArrayController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CarArrayController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +69,8 @@
 				D05075BB221D40A6006E4FD1 /* Document.h */,
 				D05075BC221D40A6006E4FD1 /* Document.m */,
 				D05075BE221D40A6006E4FD1 /* Document.xib */,
+				D0B7B6B5221E47A60086FFB1 /* CarArrayController.h */,
+				D0B7B6B6221E47A70086FFB1 /* CarArrayController.m */,
 				D05075C4221D40A6006E4FD1 /* Assets.xcassets */,
 				D05075C6221D40A6006E4FD1 /* MainMenu.xib */,
 				D05075C9221D40A6006E4FD1 /* Info.plist */,
@@ -147,6 +152,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D05075C3221D40A6006E4FD1 /* Document.xcdatamodeld in Sources */,
+				D0B7B6B7221E47A70086FFB1 /* CarArrayController.m in Sources */,
 				D05075BD221D40A6006E4FD1 /* Document.m in Sources */,
 				D05075CB221D40A6006E4FD1 /* main.m in Sources */,
 				D05075BA221D40A6006E4FD1 /* AppDelegate.m in Sources */,

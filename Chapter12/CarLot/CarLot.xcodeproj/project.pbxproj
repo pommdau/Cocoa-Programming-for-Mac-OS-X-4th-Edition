@@ -15,6 +15,9 @@
 		D05075C8221D40A6006E4FD1 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = D05075C6221D40A6006E4FD1 /* MainMenu.xib */; };
 		D05075CB221D40A6006E4FD1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D05075CA221D40A6006E4FD1 /* main.m */; };
 		D0B7B6B7221E47A70086FFB1 /* CarArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B7B6B6221E47A70086FFB1 /* CarArrayController.m */; };
+		D0B7B6BB221E63490086FFB1 /* PreferenceController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B7B6B9221E63490086FFB1 /* PreferenceController.m */; };
+		D0B7B6C0221E640A0086FFB1 /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B7B6BF221E640A0086FFB1 /* AppController.m */; };
+		D0B7B6C2221E65540086FFB1 /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0B7B6C1221E65540086FFB1 /* Preferences.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +35,11 @@
 		D05075CC221D40A6006E4FD1 /* CarLot.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CarLot.entitlements; sourceTree = "<group>"; };
 		D0B7B6B5221E47A60086FFB1 /* CarArrayController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CarArrayController.h; sourceTree = "<group>"; };
 		D0B7B6B6221E47A70086FFB1 /* CarArrayController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CarArrayController.m; sourceTree = "<group>"; };
+		D0B7B6B8221E63490086FFB1 /* PreferenceController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PreferenceController.h; sourceTree = "<group>"; };
+		D0B7B6B9221E63490086FFB1 /* PreferenceController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PreferenceController.m; sourceTree = "<group>"; };
+		D0B7B6BE221E640A0086FFB1 /* AppController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppController.h; sourceTree = "<group>"; };
+		D0B7B6BF221E640A0086FFB1 /* AppController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppController.m; sourceTree = "<group>"; };
+		D0B7B6C1221E65540086FFB1 /* Preferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Preferences.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +72,7 @@
 		D05075B7221D40A6006E4FD1 /* CarLot */ = {
 			isa = PBXGroup;
 			children = (
+				D0B7B6BD221E63EA0086FFB1 /* Preference */,
 				D05075B8221D40A6006E4FD1 /* AppDelegate.h */,
 				D05075B9221D40A6006E4FD1 /* AppDelegate.m */,
 				D05075BB221D40A6006E4FD1 /* Document.h */,
@@ -79,6 +88,18 @@
 				D05075C1221D40A6006E4FD1 /* Document.xcdatamodeld */,
 			);
 			path = CarLot;
+			sourceTree = "<group>";
+		};
+		D0B7B6BD221E63EA0086FFB1 /* Preference */ = {
+			isa = PBXGroup;
+			children = (
+				D0B7B6B8221E63490086FFB1 /* PreferenceController.h */,
+				D0B7B6B9221E63490086FFB1 /* PreferenceController.m */,
+				D0B7B6C1221E65540086FFB1 /* Preferences.xib */,
+				D0B7B6BE221E640A0086FFB1 /* AppController.h */,
+				D0B7B6BF221E640A0086FFB1 /* AppController.m */,
+			);
+			path = Preference;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -140,6 +161,7 @@
 			files = (
 				D05075C5221D40A6006E4FD1 /* Assets.xcassets in Resources */,
 				D05075C0221D40A6006E4FD1 /* Document.xib in Resources */,
+				D0B7B6C2221E65540086FFB1 /* Preferences.xib in Resources */,
 				D05075C8221D40A6006E4FD1 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -153,7 +175,9 @@
 			files = (
 				D05075C3221D40A6006E4FD1 /* Document.xcdatamodeld in Sources */,
 				D0B7B6B7221E47A70086FFB1 /* CarArrayController.m in Sources */,
+				D0B7B6BB221E63490086FFB1 /* PreferenceController.m in Sources */,
 				D05075BD221D40A6006E4FD1 /* Document.m in Sources */,
+				D0B7B6C0221E640A0086FFB1 /* AppController.m in Sources */,
 				D05075CB221D40A6006E4FD1 /* main.m in Sources */,
 				D05075BA221D40A6006E4FD1 /* AppDelegate.m in Sources */,
 			);

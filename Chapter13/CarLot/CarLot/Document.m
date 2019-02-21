@@ -8,6 +8,7 @@
 
 #import "Document.h"
 #import "CarArrayController.h"
+#import "PreferenceController.h"
 
 @interface Document ()
 
@@ -61,6 +62,11 @@
     [tableView editColumn:0 row:row withEvent:nil select:YES];
 }
 
-
+// 新規Document WindowのNIBファイルが正しく非アーカイブ化されると、Document.mは下記のメッセージを受け取る
+- (void)windowControllerDidLoadNib:(NSWindowController *)aController {
+    [super windowControllerDidLoadNib:aController];
+    [tableView setBackgroundColor:[PreferenceController preferenceTableBackgroundColor]];
+    
+}
 
 @end

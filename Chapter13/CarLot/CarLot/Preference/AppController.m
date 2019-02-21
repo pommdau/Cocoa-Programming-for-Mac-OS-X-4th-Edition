@@ -33,5 +33,10 @@
     NSLog(@"registered defaults: %@", defaultValues);
 }
 
+// 新規Untitledウィンドウを自動生成する前に、NSApplicationオブジェクトは以上先に下記のメッセージを送信する
+- (BOOL)applicationShouldOpenUntitledFile:(NSApplication *)sender {
+    NSLog(@"applicationShouldOpenUntitledFile:");
+    return [PreferenceController preferenceEmptyDoc];
+}
 
 @end

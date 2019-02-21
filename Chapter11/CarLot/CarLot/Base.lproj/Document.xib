@@ -8,6 +8,8 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="Document">
             <connections>
+                <outlet property="carArrayController" destination="NkV-AJ-Fd4" id="5Ql-ty-g8g"/>
+                <outlet property="tableView" destination="INr-HJ-YB5" id="bhU-Yu-V3V"/>
                 <outlet property="window" destination="xOd-HO-29H" id="JIz-fz-R2o"/>
             </connections>
         </customObject>
@@ -182,7 +184,7 @@
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
-                            <action selector="add:" target="NkV-AJ-Fd4" id="Sse-aL-LrZ"/>
+                            <action selector="createCar:" target="-2" id="dJV-qO-rYt"/>
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nxY-j3-QKI">

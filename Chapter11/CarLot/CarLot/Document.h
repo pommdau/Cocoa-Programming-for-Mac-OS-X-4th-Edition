@@ -7,6 +7,10 @@
 //
 
 #import <Cocoa/Cocoa.h>
+@class CarArrayController;
 
-@interface Document : NSPersistentDocument
+@interface Document : NSPersistentDocument {
+    __weak IBOutlet NSTableView *tableView;
+    IBOutlet CarArrayController *carArrayController;
+}
 @end

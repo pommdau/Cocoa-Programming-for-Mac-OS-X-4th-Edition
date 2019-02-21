@@ -7,6 +7,7 @@
 //
 
 #import "Document.h"
+#import "CarArrayController.h"
 
 @interface Document ()
 
@@ -32,6 +33,34 @@
     // If you need to use a subclass of NSWindowController or if your document supports multiple NSWindowControllers, you should remove this method and override -makeWindowControllers instead.
     return @"Document";
 }
+
+- (IBAction)createCar:(id)sender {
+    NSWindow *w = [tableView window];
+    // Try to end any editing that is taking place
+    BOOL editingEnded = [w makeFirstResponder:w];
+    if (!editingEnded) {
+        NSLog(@"Unable to end editing.");
+        return;
+    }
+    NSUndoManager *undo = [self undoManager];
+    // Has an edit occurred already in this event?
+    if ([undo groupingLevel] > 0) {
+        // Close the last group
+        [undo endUndoGrouping];
+        // Open a new group
+        [undo beginUndoGrouping];
+    }
+    // Create the object
+    id p = [carArrayController newObject];
+    [carArrayController addObject:p];
+    [carArrayController rearrangeObjects];
+    NSArray *a = [carArrayController arrangedObjects];
+    
+    NSUInteger row = [a indexOfObjectIdenticalTo:p];
+    NSLog(@"starting edit of %@ in row %lu", p, row);
+    [tableView editColumn:0 row:row withEvent:nil select:YES];
+}
+
 
 
 @end

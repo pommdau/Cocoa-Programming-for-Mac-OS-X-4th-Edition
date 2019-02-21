@@ -23,6 +23,10 @@ NSString *const BNREmptyDocKey             = @"BNREmptyDocumentFlag";
     // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
     [super windowDidLoad];
     NSLog(@"Nib file is loaded");
+    
+    [colorWell setColor:[PreferenceController preferenceTableBackgroundColor]];
+    [checkbox setState:[PreferenceController preferenceEmptyDoc]];
+    
 }
 
 - (id)init {
@@ -33,12 +37,34 @@ NSString *const BNREmptyDocKey             = @"BNREmptyDocumentFlag";
 - (IBAction)changeBackgroundColor:(id)sender {
     NSColor *color = [colorWell color];
     NSLog(@"Color changed:%@", color);
+    [PreferenceController setPreferenceTableBackgroundColor:color];
 }
 
 - (IBAction)changeNewEmptyDoc:(id)sender {
     NSInteger state = [checkbox state];
     NSLog(@"Checkbox changed %ld", state);
+    [PreferenceController setPreferenceEmptyDoc:state];
 }
 
+// Userdefaultを編集するための、SetterやGetter
++ (NSColor *)preferenceTableBackgroundColor {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSData *colorAsData = [defaults objectForKey:BNRTableBackgroundColorKey];
+    return [NSKeyedUnarchiver unarchiveObjectWithData:colorAsData];
+}
+
++ (void)setPreferenceTableBackgroundColor:(NSColor *)color {
+    NSData *colorAsData = [NSKeyedArchiver archivedDataWithRootObject:color];
+    [[NSUserDefaults standardUserDefaults] setObject:colorAsData forKey:BNRTableBackgroundColorKey];
+}
+
++ (BOOL)preferenceEmptyDoc {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    return [defaults boolForKey:BNREmptyDocKey];
+}
+
++ (void)setPreferenceEmptyDoc:(BOOL)emptyDoc {
+    [[NSUserDefaults standardUserDefaults] setBool:emptyDoc forKey:BNREmptyDocKey];
+}
 
 @end

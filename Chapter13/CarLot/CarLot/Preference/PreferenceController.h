@@ -19,4 +19,10 @@ extern NSString *const BNREmptyDocKey;
 - (IBAction)changeBackgroundColor:(id)sender;
 - (IBAction)changeNewEmptyDoc:(id)sender;
 
+// Accesser的な…？
++ (NSColor *)preferenceTableBackgroundColor;
++ (void)setPreferenceTableBackgroundColor:(NSColor *)color;
++ (BOOL)preferenceEmptyDoc;
++ (void)setPreferenceEmptyDoc:(BOOL)emptyDoc;
+
 @end

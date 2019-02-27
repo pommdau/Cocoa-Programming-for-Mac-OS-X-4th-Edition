@@ -94,6 +94,7 @@
 - (void)mouseDragged:(NSEvent *)event {
     NSPoint p = [event locationInWindow];
     currentPoint = [self convertPoint:p fromView:nil];
+    [self autoscroll:event];    // オートスクロール機能を追加する
     [self setNeedsDisplay:YES];
 }
 

@@ -22,8 +22,9 @@
         NSPoint point = [self randomPoint];
         [path moveToPoint:point];   // 始点の決定
         for (int i = 0; i < 15; i++) {
-            point = [self randomPoint];
-            [path lineToPoint:point];
+            [path curveToPoint:[self randomPoint]
+                 controlPoint1:[self randomPoint]
+                 controlPoint2:[self randomPoint]];
         }
     }
     return self;
@@ -45,8 +46,8 @@
     
     // パスを白色で描画する
     [[NSColor whiteColor] set];
-//    [path stroke];
-    [path fill];
+    [path stroke];
+//    [path fill];
 }
 
 - (NSPoint)randomPoint {

@@ -39,4 +39,9 @@
     return [PreferenceController preferenceEmptyDoc];
 }
 
+// アプリケーションがアクティブになったときに、Beep音を鳴らす
+- (void)applicationDidResignActive:(NSNotification *)notification {
+    NSBeep();
+}
+
 @end

@@ -8,8 +8,9 @@
 
 #import "PreferenceController.h"
 
-NSString *const BNRTableBackgroundColorKey = @"BNRTableBackgroundColor";
-NSString *const BNREmptyDocKey             = @"BNREmptyDocumentFlag";
+NSString *const BNRTableBackgroundColorKey  = @"BNRTableBackgroundColor";
+NSString *const BNREmptyDocKey              = @"BNREmptyDocumentFlag";
+NSString *const BNRColorChangedNotification = @"BNRColorChanged";
 
 @interface PreferenceController ()
 
@@ -41,6 +42,11 @@ NSString *const BNREmptyDocKey             = @"BNREmptyDocumentFlag";
     NSColor *color = [colorWell color];
     NSLog(@"Color changed:%@", color);
     [PreferenceController setPreferenceTableBackgroundColor:color];
+    
+    // 通知のポスト
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    NSLog(@"Sending notification...");
+    [nc postNotificationName:BNRColorChangedNotification object:self];
 }
 
 - (IBAction)changeNewEmptyDoc:(id)sender {

@@ -20,6 +20,9 @@
     self = [super init];
     if (self) {
         // Add your subclass-specific initialization here.
+        NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+        [nc addObserver:self selector:@selector(handleColorChange:) name:BNRColorChangedNotification object:nil];
+        NSLog(@"Registered with notification center");
     }
     return self;
 }
@@ -67,6 +70,11 @@
     [super windowControllerDidLoadNib:aController];
     [tableView setBackgroundColor:[PreferenceController preferenceTableBackgroundColor]];
     
+}
+
+// 設定パネルで背景色が変更されたときに通知により呼び出されるメソッド
+- (void)handleColorChange:(NSNotification *)note {
+    NSLog(@"Received notification:%@", note);
 }
 
 @end

@@ -10,6 +10,7 @@
 
 extern NSString *const BNRTableBackgroundColorKey;
 extern NSString *const BNREmptyDocKey;
+extern NSString *const BNRColorChangedNotification;
 
 @interface PreferenceController : NSWindowController {
     IBOutlet NSColorWell *colorWell;

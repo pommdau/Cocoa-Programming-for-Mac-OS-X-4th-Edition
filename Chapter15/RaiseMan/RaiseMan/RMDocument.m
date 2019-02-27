@@ -219,6 +219,30 @@ static void *RMDocumentKVOContext;
 				   select:YES];
 }
 
+- (IBAction)removeEmployee:(id)sender {
+    NSArray *selectedPeople = [employeeController selectedObjects];
+    NSAlert *alert = [NSAlert alertWithMessageText:@"Do you really want to remove these people?"
+                                     defaultButton:@"Remove"
+                                   alternateButton:@"Cancel"
+                                       otherButton:nil
+                         informativeTextWithFormat:@"%ld people will be removed.", (long)selectedPeople.count];
+    NSLog(@"Starting alert sheet");
+    [alert beginSheetModalForWindow:[tableView window]
+                      modalDelegate:self
+                     didEndSelector:@selector(alertEnded:code:context:)
+                        contextInfo:NULL];
+}
+
+- (void)alertEnded:(NSAlert *)alert code:(NSInteger)choice context:(void *)v {
+    NSLog(@"Alert sheet ended");
+    // ユーザが削除を選択した場合、NSArrayControllerに対して従業員の削除を指示する
+    if (choice == NSAlertDefaultReturn) {
+        // removeの引数は無視される
+        // NSArrayControllerは選択されているオブジェクトを削除する
+        [employeeController remove:nil];
+    }
+}
+
 - (void)handleColorChange:(NSNotification *)note
 {
 	NSLog(@"Received notification: %@", note);

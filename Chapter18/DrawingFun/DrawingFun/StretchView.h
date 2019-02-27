@@ -12,6 +12,9 @@
     NSBezierPath *path; // 白色で描画するパス
     NSImage *image;
     float opacity;
+    
+    NSPoint downPoint;
+    NSPoint currentPoint;
 }
 @property (assign) float opacity;
 @property (strong) NSImage *image;

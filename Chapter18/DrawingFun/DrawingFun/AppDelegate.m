@@ -20,7 +20,6 @@
     // Insert code here to initialize your application
 }
 
-
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
     // Insert code here to tear down your application
 }
@@ -28,7 +27,6 @@
 - (IBAction)showOpenPanel:(id)sender {
     __block NSOpenPanel *panel = [NSOpenPanel openPanel];
     [panel setAllowedFileTypes:[NSImage imageTypes]];
-    
     [panel beginSheetModalForWindow:[stretchView window]
                   completionHandler:^(NSModalResponse result) {
                       if (result == NSModalResponseOK) {
@@ -36,7 +34,6 @@
                           [self->stretchView setImage:image];
                       }
                   }];
-    
 }
 
 @end

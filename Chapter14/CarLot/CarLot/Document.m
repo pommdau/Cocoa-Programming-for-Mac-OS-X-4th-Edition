@@ -75,6 +75,8 @@
 // 設定パネルで背景色が変更されたときに通知により呼び出されるメソッド
 - (void)handleColorChange:(NSNotification *)note {
     NSLog(@"Received notification:%@", note);
+    NSColor *color = [[note userInfo] objectForKey:@"color"];
+    [tableView setBackgroundColor:color];
 }
 
 @end

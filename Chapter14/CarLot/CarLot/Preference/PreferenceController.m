@@ -39,14 +39,17 @@ NSString *const BNRColorChangedNotification = @"BNRColorChanged";
 }
 
 - (IBAction)changeBackgroundColor:(id)sender {
-    NSColor *color = [colorWell color];
+    NSColor *color = [sender color];
     NSLog(@"Color changed:%@", color);
     [PreferenceController setPreferenceTableBackgroundColor:color];
     
     // 通知のポスト
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-    NSLog(@"Sending notification...");
-    [nc postNotificationName:BNRColorChangedNotification object:self];
+    NSLog(@"Sending notification");
+    NSDictionary *userInfoDic = [NSDictionary dictionaryWithObject:color forKey:@"color"];
+    [nc postNotificationName:BNRColorChangedNotification
+                      object:self
+                    userInfo:userInfoDic];
 }
 
 - (IBAction)changeNewEmptyDoc:(id)sender {

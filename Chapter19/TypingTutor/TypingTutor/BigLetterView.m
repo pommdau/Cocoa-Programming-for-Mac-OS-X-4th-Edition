@@ -19,10 +19,16 @@
     [NSBezierPath fillRect:bounds];
     
     // このビューはウィンドウのファーストレスポンダか
-    if ([[self window] firstResponder] == self) {
-        [[NSColor keyboardFocusIndicatorColor] set];
-        [NSBezierPath setDefaultLineWidth:4.0];
-        [NSBezierPath strokeRect:bounds];
+    if (([[self window] firstResponder] == self) &&
+        [NSGraphicsContext currentContextDrawingToScreen]) {
+        // ぼんやりとした青の枠囲み
+        [NSGraphicsContext saveGraphicsState];
+        NSSetFocusRingStyle(NSFocusRingOnly);
+        [NSBezierPath fillRect:bounds];
+        [NSGraphicsContext restoreGraphicsState];
+//        [[NSColor keyboardFocusIndicatorColor] set];
+//        [NSBezierPath setDefaultLineWidth:4.0];
+//        [NSBezierPath strokeRect:bounds];
     }
 }
 
@@ -50,6 +56,12 @@
 - (BOOL)becomeFirstResponder {
     NSLog(@"Becoming");
     [self setNeedsDisplay:YES];
+    return YES;
+}
+
+- (BOOL)resignFirstResponder {
+    NSLog(@"Resigning");
+    [self setKeyboardFocusRingNeedsDisplayInRect:[self bounds]];
     return YES;
 }
 

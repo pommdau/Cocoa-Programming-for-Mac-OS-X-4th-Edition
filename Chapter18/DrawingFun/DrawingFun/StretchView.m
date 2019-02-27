@@ -26,6 +26,8 @@
                  controlPoint1:[self randomPoint]
                  controlPoint2:[self randomPoint]];
         }
+        [path closePath];
+        opacity = 1.0;
     }
     return self;
 }
@@ -48,6 +50,20 @@
     [[NSColor whiteColor] set];
     [path stroke];
 //    [path fill];
+    
+    if (image) {
+        NSRect imageRect;
+        imageRect.origin = NSZeroPoint;
+        imageRect.size = [image size];
+        NSRect drawingRect = imageRect;
+        [image drawInRect:drawingRect
+                 fromRect:imageRect
+                operation:NSCompositeSourceOver
+                 fraction:opacity];
+        
+        
+    }
+    
 }
 
 - (NSPoint)randomPoint {
@@ -71,6 +87,26 @@
 
 - (void)mouseUp:(NSEvent *)event {
     NSLog(@"mouseUp:");
+}
+
+#pragma mark Accessors
+
+- (NSImage *)image {
+    return image;
+}
+
+- (void)setImage:(NSImage *)newImage {
+    image = newImage;
+    [self setNeedsDisplay:YES];
+}
+
+- (float)opacity {
+    return opacity;
+}
+
+- (void)setOpacity:(float)x {
+    opacity = x;
+    [self setNeedsDisplay:YES];
 }
 
 @end

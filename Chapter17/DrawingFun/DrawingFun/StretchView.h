@@ -8,6 +8,10 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface StretchView : NSView
+@interface StretchView : NSView {
+    NSBezierPath *path; // 白色で描画するパス
+}
+
+- (NSPoint)randomPoint;
 
 @end

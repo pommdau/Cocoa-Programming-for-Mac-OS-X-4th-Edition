@@ -21,4 +21,8 @@
 - (IBAction)toggleBold:(NSButton *)sender;
 - (IBAction)toggleItalic:(NSButton *)sender;
 
+#pragma mark Pasteboard method
+- (IBAction)cut  :(id)sender;
+- (IBAction)copy :(id)sender;
+- (IBAction)paste:(id)sender;
 @end

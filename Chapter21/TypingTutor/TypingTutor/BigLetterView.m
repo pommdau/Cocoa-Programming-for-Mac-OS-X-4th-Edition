@@ -183,4 +183,45 @@
     [self setNeedsDisplay:YES];
 }
 
+#pragma mark Pasteboard method
+// データをペーストボードにコピーする
+- (void)writeToPasteboard:(NSPasteboard *)pb {
+    [pb clearContents];
+    [pb writeObjects:[NSArray arrayWithObject:string]];
+}
+
+// ペーストボードから文字列を読み込む
+- (BOOL)readFromPasteboard:(NSPasteboard *)pb {
+    NSArray *classes = [NSArray arrayWithObject:[NSString class]];
+    NSArray *objects = [pb readObjectsForClasses:classes options:nil];
+    if (objects.count > 0) {
+        // ペーストボードから文字列を読み込む
+        NSString *value = [objects objectAtIndex:0];
+        
+        // このビューでは1文字だけ処理できる
+        if (value.length == 1) {
+            [self setString:value];
+            return YES;
+        }
+    }
+    return NO;
+}
+
+- (IBAction)cut  :(id)sender {
+    [self copy:sender];     // 下記で定義しているcopyを呼び出す
+    [self setString:@""];   // 画面上（BigLetterView）の表示を@""にする
+}
+
+- (IBAction)copy :(id)sender {
+    NSPasteboard *pb = [NSPasteboard generalPasteboard];
+    [self writeToPasteboard:pb];
+}
+
+- (IBAction)paste:(id)sender {
+    NSPasteboard *pb = [NSPasteboard generalPasteboard];
+    if (![self readFromPasteboard:pb]) {
+        NSBeep();
+    }
+}
+
 @end

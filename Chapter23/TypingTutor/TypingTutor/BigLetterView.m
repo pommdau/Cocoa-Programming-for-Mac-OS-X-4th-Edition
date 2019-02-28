@@ -344,4 +344,14 @@
     [self setNeedsDisplay:YES];
 }
 
+// 押下している修飾キーによってフィルタリング、の確認
+- (NSDragOperation)draggingUpdated:(id<NSDraggingInfo>)sender {
+    NSDragOperation op = [sender draggingSourceOperationMask];
+    NSLog(@"*** operation mask = %ld", op);
+    if ([sender draggingSource] == self) {
+        return NSDragOperationNone;
+    }
+    return NSDragOperationCopy;
+}
+
 @end

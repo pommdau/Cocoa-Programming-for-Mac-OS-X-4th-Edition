@@ -238,7 +238,7 @@
 #pragma mark dragging method
 // ビューがドラッグ元としてどのような操作を行うか
 - (NSDragOperation)draggingSourceOperationMaskForLocal:(BOOL)isLocal {
-    return NSDragOperationCopy;
+    return NSDragOperationCopy | NSDragOperationDelete;
 }
 
 - (void)mouseDown:(NSEvent *)event {
@@ -291,5 +291,12 @@
           slideBack:YES];
 }
 
+- (void)draggedImage:(NSImage *)image
+             endedAt:(NSPoint)screenPoint
+           operation:(NSDragOperation)operation {
+    if (operation == NSDragOperationDelete) {
+        [self setString:@""];   // 文字をゴミ箱にドラッグすると文字は消える
+    }
+}
 
 @end

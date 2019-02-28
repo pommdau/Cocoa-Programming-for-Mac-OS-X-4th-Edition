@@ -7,6 +7,7 @@
 //
 
 #import "BigLetterView.h"
+#import "NSString+FirstLetter.h"
 
 @implementation BigLetterView
 
@@ -199,11 +200,13 @@
         // ペーストボードから文字列を読み込む
         NSString *value = [objects objectAtIndex:0];
         
-        // このビューでは1文字だけ処理できる
-        if (value.length == 1) {
-            [self setString:value];
-            return YES;
-        }
+//        // このビューでは1文字だけ処理できる
+//        if (value.length == 1) {
+//            [self setString:value];
+//            return YES;
+//        }
+        [self setString:[value bnr_firstLetter]];
+        return YES;
     }
     return NO;
 }

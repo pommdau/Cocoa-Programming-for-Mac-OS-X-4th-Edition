@@ -183,7 +183,8 @@
     [self setNeedsDisplay:YES];
 }
 
-#pragma mark Pasteboard method
+#pragma mark - Pasteboard method
+
 // データをペーストボードにコピーする
 - (void)writeToPasteboard:(NSPasteboard *)pb {
     [pb clearContents];
@@ -213,8 +214,15 @@
 }
 
 - (IBAction)copy :(id)sender {
+    // Create an NSPasteboardItem and write both the string and PDF data to it
+    NSPasteboardItem *item = [[NSPasteboardItem alloc] init];   // IOU Object
+    [item setData:[self dataWithPDFInsideRect:[self bounds]] forType:NSPasteboardTypePDF];
+    [item setString:string forType:NSPasteboardTypeString];
+    
+    // Now write the item to the pasteboard
     NSPasteboard *pb = [NSPasteboard generalPasteboard];
-    [self writeToPasteboard:pb];
+    [pb clearContents];
+    [pb writeObjects:[NSArray arrayWithObject:item]];
 }
 
 - (IBAction)paste:(id)sender {

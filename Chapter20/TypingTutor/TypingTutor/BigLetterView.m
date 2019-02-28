@@ -15,6 +15,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         NSLog(@"initializing view");
+        [self prepareAttributes];   // 表示するフォントの属性を設定する
         bgColor = [NSColor yellowColor];
         string = @" ";
     }
@@ -27,6 +28,9 @@
 	NSRect bounds = [self bounds];
 	[bgColor set];
 	[NSBezierPath fillRect:bounds];
+    
+    [self drawStringCenteredIn:bounds]; // 文字の描画
+    
 	// Am I the window's first responder?
 	if (([[self window] firstResponder] == self) &&
 		[NSGraphicsContext currentContextDrawingToScreen])
@@ -37,6 +41,14 @@
 		[NSGraphicsContext restoreGraphicsState];
 	}
 }
+
+// prepare attributes, font and fontColor
+- (void)prepareAttributes {
+    attributes = [NSMutableDictionary dictionary];
+    [attributes setObject:[NSFont userFontOfSize:75] forKey:NSFontAttributeName];
+    [attributes setObject:[NSColor redColor] forKey:NSForegroundColorAttributeName];
+}
+
 - (BOOL)isOpaque
 {
 	return YES;
@@ -86,6 +98,15 @@
     [self setString:@" "];
 }
 
+// 矩形領域の中央に文字列を表示するメソッド
+- (void)drawStringCenteredIn:(NSRect)aRect {
+    NSSize strSize = [string sizeWithAttributes:attributes];
+    NSPoint strOrigin;
+    strOrigin.x = aRect.origin.x + (aRect.size.width - strSize.width)/2;
+    strOrigin.y = aRect.origin.y + (aRect.size.height - strSize.height)/2;
+    [string drawAtPoint:strOrigin withAttributes:attributes];
+}
+
 #pragma mark Accessors
 
 - (void)setBgColor:(NSColor *)c
@@ -101,10 +122,13 @@
 {
 	string = c;
 	NSLog(@"The string is now %@", string);
+    [self setNeedsDisplay:YES];
 }
 - (NSString *)string
 {
 	return string;
 }
+
+
 
 @end

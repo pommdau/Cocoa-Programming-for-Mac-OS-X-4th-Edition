@@ -11,7 +11,9 @@
 @interface BigLetterView : NSView {
 	NSColor *bgColor;
 	NSString *string;
+    NSMutableDictionary *attributes;    // フォント属性のDictionaryを保持する
 }
+- (void)prepareAttributes;  // prepare attributes, font and fontColor
 @property (strong) NSColor *bgColor;
 @property (copy) NSString *string;
 

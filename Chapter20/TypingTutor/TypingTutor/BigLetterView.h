@@ -12,9 +12,13 @@
 	NSColor *bgColor;
 	NSString *string;
     NSMutableDictionary *attributes;    // フォント属性のDictionaryを保持する
+    BOOL isBold;
+    BOOL isItalic;
 }
 - (void)prepareAttributes;  // prepare attributes, font and fontColor
 @property (strong) NSColor *bgColor;
 @property (copy) NSString *string;
+- (IBAction)toggleBold:(NSButton *)sender;
+- (IBAction)toggleItalic:(NSButton *)sender;
 
 @end

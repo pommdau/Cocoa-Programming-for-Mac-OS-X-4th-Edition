@@ -46,8 +46,17 @@
 - (void)prepareAttributes {
     // set default attributes
     attributes = [NSMutableDictionary dictionary];
-    [attributes setObject:[NSFont userFontOfSize:75] forKey:NSFontAttributeName];
-    [attributes setObject:[NSColor redColor] forKey:NSForegroundColorAttributeName];
+    
+    NSFont *font = [NSFont userFontOfSize:75];
+    NSFontManager *fontManager = [NSFontManager sharedFontManager];
+    if (isBold) {
+        font = [fontManager convertFont:font toHaveTrait:NSBoldFontMask];
+    }
+    if (isItalic) {
+        font = [fontManager convertFont:font toHaveTrait:NSItalicFontMask];
+    }
+    [attributes setObject:font               forKey:NSFontAttributeName];               // フォントサイズ・ボールド・イタリックを設定
+    [attributes setObject:[NSColor redColor] forKey:NSForegroundColorAttributeName];    // フォントカラーの設定
     
     // set shadow
     NSShadow *shadow = [[NSShadow alloc] init];
@@ -160,6 +169,18 @@
 	return string;
 }
 
+#pragma mark - Button Pushed method
 
+- (IBAction)toggleBold:(NSButton *)sender {
+    isBold = sender.state;
+    [self prepareAttributes];
+    [self setNeedsDisplay:YES];
+}
+
+- (IBAction)toggleItalic:(NSButton *)sender {
+    isItalic = sender.state;
+    [self prepareAttributes];
+    [self setNeedsDisplay:YES];
+}
 
 @end

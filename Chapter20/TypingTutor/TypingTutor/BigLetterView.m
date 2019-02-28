@@ -44,9 +44,17 @@
 
 // prepare attributes, font and fontColor
 - (void)prepareAttributes {
+    // set default attributes
     attributes = [NSMutableDictionary dictionary];
     [attributes setObject:[NSFont userFontOfSize:75] forKey:NSFontAttributeName];
     [attributes setObject:[NSColor redColor] forKey:NSForegroundColorAttributeName];
+    
+    // set shadow
+    NSShadow *shadow = [[NSShadow alloc] init];
+    [shadow setShadowOffset:NSMakeSize(0, -2)];
+    [shadow setShadowBlurRadius:3];
+    [shadow setShadowColor:[NSColor blackColor]];
+    [attributes setObject:shadow forKey:NSShadowAttributeName];
 }
 
 - (BOOL)isOpaque

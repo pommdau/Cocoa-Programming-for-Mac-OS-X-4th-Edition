@@ -15,6 +15,7 @@
     BOOL isBold;
     BOOL isItalic;
     NSEvent *mouseDownEvent;    // mouseDownイベントを保持するためのインスタンス変数
+    BOOL highlighted;           // ドロップ可能な場合にハイライトさせる
 }
 - (void)prepareAttributes;  // prepare attributes, font and fontColor
 @property (strong) NSColor *bgColor;

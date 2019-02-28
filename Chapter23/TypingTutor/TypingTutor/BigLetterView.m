@@ -19,16 +19,25 @@
         [self prepareAttributes];   // 表示するフォントの属性を設定する
         bgColor = [NSColor yellowColor];
         string = @" ";
+        [self registerForDraggedTypes:[NSArray arrayWithObject:NSPasteboardTypeString]];
     }
-    
     return self;
 }
 
 - (void)drawRect:(NSRect)dirtyRect
 {
 	NSRect bounds = [self bounds];
-	[bgColor set];
-	[NSBezierPath fillRect:bounds];
+    
+    // ハイライトする場合、グラデーション背景を描画する
+    if (highlighted) {
+        NSGradient *grad;
+        grad = [[NSGradient alloc] initWithStartingColor:[NSColor whiteColor]
+                                              endingColor:bgColor];
+        [grad drawInRect:bounds relativeCenterPosition:NSZeroPoint];
+    } else {
+        [bgColor set];
+        [NSBezierPath fillRect:bounds];
+    }
     
     [self drawStringCenteredIn:bounds]; // 文字の描画
     
@@ -297,6 +306,42 @@
     if (operation == NSDragOperationDelete) {
         [self setString:@""];   // 文字をゴミ箱にドラッグすると文字は消える
     }
+}
+
+#pragma mark Dragging Destination
+- (NSDragOperation)draggingEntered:(id<NSDraggingInfo>)sender {
+    NSLog(@"draggingEntered");
+    if ([sender draggingSource] == self) {
+        return NSDragOperationNone;
+    }
+    highlighted = YES;
+    [self setNeedsDisplay:YES];
+    return NSDragOperationCopy;
+}
+
+- (void)draggingExited:(id<NSDraggingInfo>)sender {
+    NSLog(@"draggingExited");
+    highlighted = NO;
+    [self setNeedsDisplay:YES];
+}
+
+- (BOOL)prepareForDragOperation:(id<NSDraggingInfo>)sender {
+    return YES;
+}
+
+- (BOOL)performDragOperation:(id<NSDraggingInfo>)sender {
+    NSPasteboard *pb = [sender draggingPasteboard];
+    if (![self readFromPasteboard:pb]) {
+        NSLog(@"Error: Could not read from dragging pasteboard");
+        return NO;
+    }
+    return YES;
+}
+
+- (void)concludeDragOperation:(id<NSDraggingInfo>)sender {
+    NSLog(@"concludeDragOperation");
+    highlighted = NO;
+    [self setNeedsDisplay:YES];
 }
 
 @end
